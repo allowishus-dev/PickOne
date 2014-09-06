@@ -26,7 +26,8 @@ public class MainView extends JFrame {
 	public MainView(final Controller ctl) {
 		setSize(300, 400);
 		setTitle("Pick One! random student selecter");
-		getContentPane().setLayout(new BorderLayout(0, 0));
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setLayout(new BorderLayout(0, 0));
 		
 		topPanel = new JPanel(new FlowLayout());
 		topPanel.setBackground(Color.LIGHT_GRAY);
@@ -54,6 +55,10 @@ public class MainView extends JFrame {
 					table.getTableModel().removeRow(i);
 					table.initTable();
 				}
+				else {
+					JOptionPane.showMessageDialog(frame, "Something when wrong in getting a random number from random.org", "Connection Error!", JOptionPane.INFORMATION_MESSAGE);
+				}
+				
 			}
 			
 		});

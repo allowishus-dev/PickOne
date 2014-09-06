@@ -14,11 +14,15 @@ import com.marsG.simplerandomorglib.RandomIntegerClient;
 public class Controller {
 	private static FileWrapper fw = new FileWrapper();
 	private static ArrayList<Student> allStudents = new ArrayList<Student>();
+	private static RandomIntegerClient cl;
 	
 	public Integer makeRandomInt(int max) {
 		Integer ranI = null;
 		
-		RandomIntegerClient cl = new RandomIntegerClient("allowishus@sol.dk");
+		if (cl==null) {
+			cl = new RandomIntegerClient("allowishus@sol.dk");
+		}
+		
 		try {
 			ranI = Integer.parseInt(cl.getRandomIntDecimal(0, max, 1).get(0));
 			
@@ -71,13 +75,13 @@ public class Controller {
 			
 			ranI = makeRandomInt(left-1);
 			
-			Student foundStudent = allStudents.get(ranI);
-			
-//			System.out.println(ranI + "\n" + foundStudent.getName());
-			
-			remove(foundStudent);
-			
-			saveStudentList();
+			if (ranI!=null) {
+				Student foundStudent = allStudents.get(ranI);
+				
+				remove(foundStudent);
+				
+				saveStudentList();
+			}
 			
 			return ranI;
 			
@@ -95,6 +99,5 @@ public class Controller {
 	public void loadStudentList() throws Exception {
 		allStudents = fw.loadStudentList();
 		fw.saveStudentList(allStudents);
-		
 	}
 }
